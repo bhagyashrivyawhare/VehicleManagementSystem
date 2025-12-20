@@ -38,4 +38,8 @@ public class Vehicle {
     private  LocalDateTime associationDeactivatedAt;
     @NotNull
     private boolean isVehicleActive;
+
+    @ManyToOne (fetch = FetchType.LAZY)
+    @JoinColumn(name = "resident_id")
+    private Resident resident;
 }

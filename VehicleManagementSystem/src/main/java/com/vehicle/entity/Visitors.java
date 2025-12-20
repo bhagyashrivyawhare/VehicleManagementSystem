@@ -30,6 +30,9 @@ public class Visitors {
         GUEST,DELIVERY
 
     }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "resident_id")
+    private Resident resident;
 
 
 }

@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Data
 public class Resident {
@@ -33,5 +35,11 @@ public class Resident {
     public enum ResidentType{
         TENANT,OWNER
     }
+    @OneToMany(mappedBy = "resident", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Vehicle> vehicalList;
+
+    @OneToMany(mappedBy = "resident", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Visitors> visitorList;
+
 
 }
