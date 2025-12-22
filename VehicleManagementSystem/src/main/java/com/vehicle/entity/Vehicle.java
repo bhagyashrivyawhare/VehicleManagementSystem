@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -13,6 +12,7 @@ import java.time.LocalDateTime;
 public class Vehicle {
 
 
+    private static @NotNull Vehicle.@NotNull Type Type;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
@@ -82,7 +82,7 @@ public class Vehicle {
         this.color = color;
     }
 
-    public Type getType() {
+    public @NotNull Type getType() {
         return type;
     }
 

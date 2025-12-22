@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ResidentDTO {
 
-    @NotBlank(message = "First name is required")
+   // @NotBlank(message = "First name is required")
     private String fName;
 
     private String lName;
