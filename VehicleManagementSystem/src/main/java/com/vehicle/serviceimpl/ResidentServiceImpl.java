@@ -2,6 +2,8 @@ package com.vehicle.serviceimpl;
 
 import com.vehicle.dto.request.ResidentDTO;
 import com.vehicle.dto.request.VehicleDTO;
+import com.vehicle.dto.response.ResidentResponseDTO;
+import com.vehicle.dto.response.VehicleResponseDTO;
 import com.vehicle.entity.Resident;
 import com.vehicle.entity.Vehicle;
 import com.vehicle.repository.ResidentRepository;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ResidentServiceImpl implements ResidentService {
@@ -64,6 +67,34 @@ public class ResidentServiceImpl implements ResidentService {
         // save resident (vehicles also saved automatically)
         residentRepository.save(resident);
     }
+//get all resident
+    @Override
+    public List<ResidentResponseDTO> getAllResident() {
+        List<Resident> residents=residentRepository.findAll();
+        return residents.stream().map(resident ->{
+            ResidentResponseDTO dto=new ResidentResponseDTO();
+            dto.setId((long) resident.getId());
+            dto.setFname(resident.getfName());
+            dto.setEmail(resident.getEmail());
+            dto.setMobileNo(String.valueOf(resident.getMobileNo()));
+            List<VehicleResponseDTO> vehicleResponseDTOList= resident.getVehicalList().stream().map(vehicle ->{
+                VehicleResponseDTO vehicleResponseDTO=new VehicleResponseDTO();
+                vehicleResponseDTO.setVehicleId( vehicle.getVehicleId());
+                vehicleResponseDTO.setVehicleName(vehicle.getVehicleName());
+                vehicleResponseDTO.setRegisterationNumber(vehicle.getRegisterationNumber());
+                vehicleResponseDTO.setColor(vehicle.getColor());
+
+
+                return vehicleResponseDTO;
+            } ).collect(Collectors.toList());
+dto.setVehicles(vehicleResponseDTOList);
+return dto;
+        } ).collect(Collectors.toList());
+
+
+
 
     }
+
+}
 
