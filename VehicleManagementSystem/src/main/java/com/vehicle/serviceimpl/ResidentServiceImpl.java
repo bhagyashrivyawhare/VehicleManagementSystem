@@ -79,9 +79,12 @@ public class ResidentServiceImpl implements ResidentService {
             dto.setMobileNo(String.valueOf(resident.getMobileNo()));
             List<VehicleResponseDTO> vehicleResponseDTOList= resident.getVehicalList().stream().map(vehicle ->{
                 VehicleResponseDTO vehicleResponseDTO=new VehicleResponseDTO();
-                vehicleResponseDTO.setId((long) vehicle.getVehicleId());
+                vehicleResponseDTO.setVehicleId( vehicle.getVehicleId());
+                vehicleResponseDTO.setVehicleName(vehicle.getVehicleName());
+                vehicleResponseDTO.setRegisterationNumber(vehicle.getRegisterationNumber());
+                vehicleResponseDTO.setColor(vehicle.getColor());
 
-                vehicleResponseDTO.setVehicleNumber(vehicle.getRegisterationNumber());
+
                 return vehicleResponseDTO;
             } ).collect(Collectors.toList());
 dto.setVehicles(vehicleResponseDTOList);
