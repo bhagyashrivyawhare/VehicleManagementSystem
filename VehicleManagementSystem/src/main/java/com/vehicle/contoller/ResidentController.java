@@ -28,6 +28,17 @@ public class ResidentController {
         List<ResidentResponseDTO> listAll=residentService.getAllResident();
         return new ResponseEntity<>(listAll, HttpStatus.FOUND);
     }
+    @GetMapping("/search/{name}")
+    public ResponseEntity<String> searchResidentByName(@RequestParam(required = false) String fname, @RequestParam(required = false) String lastName){
+        //at least one value requited
+        if ((fname==null || fname.isBlank())  && (lastName== null || lastName.isBlank())){
+            return  ResponseEntity.badRequest().body("plese provide first name or last name");
+
+        }
+        return ResponseEntity.ok(
+                residentService.findResidentByName(fname, lastName).toString()
+        );
+    }
 }
 
 

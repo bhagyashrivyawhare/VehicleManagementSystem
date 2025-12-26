@@ -81,7 +81,7 @@ public class ResidentServiceImpl implements ResidentService {
                 VehicleResponseDTO vehicleResponseDTO=new VehicleResponseDTO();
                 vehicleResponseDTO.setVehicleId( vehicle.getVehicleId());
                 vehicleResponseDTO.setVehicleName(vehicle.getVehicleName());
-                vehicleResponseDTO.setRegisterationNumber(vehicle.getRegisterationNumber());
+                vehicleResponseDTO.setRegistrationNumber(vehicle.getRegisterationNumber());
                 vehicleResponseDTO.setColor(vehicle.getColor());
 
 
@@ -94,6 +94,21 @@ return dto;
 
 
 
+    }
+
+    @Override
+    public List<Resident> findResidentByName(String firstName, String lastName) {
+        List<Resident> residents;
+        if (firstName != null && lastName != null) {
+            residents = residentRepository.findByFNameAndLName(firstName, lastName);
+        }
+        else if (firstName != null) {
+            residents = residentRepository.findByFName(firstName);
+        }
+        else {
+            residents = residentRepository.findByLName(lastName);
+        }
+        return residents;
     }
 
 }

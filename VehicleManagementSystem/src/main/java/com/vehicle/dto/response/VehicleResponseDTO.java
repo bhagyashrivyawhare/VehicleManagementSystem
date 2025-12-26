@@ -1,10 +1,12 @@
 package com.vehicle.dto.response;
 
+import com.vehicle.entity.Resident;
+
 public class VehicleResponseDTO {
     private int  vehicleId;
     private String vehicleName;
 
-    private String registerationNumber;
+    private String registrationNumber;
     private String color;
 
     public int getVehicleId() {
@@ -23,12 +25,12 @@ public class VehicleResponseDTO {
         this.vehicleName = vehicleName;
     }
 
-    public String getRegisterationNumber() {
-        return registerationNumber;
+    public String getRegistrationNumber() {
+        return registrationNumber;
     }
 
-    public void setRegisterationNumber(String registerationNumber) {
-        this.registerationNumber = registerationNumber;
+    public void setRegistrationNumber(String registrationNumber) {
+        this.registrationNumber = registrationNumber;
     }
 
     public String getColor() {

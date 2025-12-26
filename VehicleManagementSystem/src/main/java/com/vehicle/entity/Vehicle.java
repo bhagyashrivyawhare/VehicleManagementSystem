@@ -1,5 +1,6 @@
 package com.vehicle.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -8,11 +9,8 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Entity
-@Data
 public class Vehicle {
 
-
-    private static @NotNull Vehicle.@NotNull Type Type;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
@@ -46,6 +44,7 @@ public class Vehicle {
     private boolean isVehicleActive;
 
     @ManyToOne (fetch = FetchType.LAZY)
+    @JsonBackReference
     @JoinColumn(name = "resident_id")
 
     private Resident resident;
@@ -121,4 +120,6 @@ public class Vehicle {
     public void setResident(Resident resident) {
         this.resident = resident;
     }
+
+
 }

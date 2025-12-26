@@ -1,5 +1,6 @@
 package com.vehicle.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -9,7 +10,7 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity
-@Data
+
 @Setter
 @Getter
 public class Resident {
@@ -45,6 +46,7 @@ public class Resident {
         TENANT,OWNER
     }
     @OneToMany(mappedBy = "resident", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
     private List<Vehicle> vehicalList;
 
     @OneToMany(mappedBy = "resident", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -121,4 +123,6 @@ public class Resident {
     public void setVisitorList(List<Visitors> visitorList) {
         this.visitorList = visitorList;
     }
+
+
 }
