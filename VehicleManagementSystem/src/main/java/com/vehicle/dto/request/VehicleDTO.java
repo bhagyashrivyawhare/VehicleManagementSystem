@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 
 public class VehicleDTO {
 
-    @NotBlank(message = "Registration number is required")
+    @NotBlank(message = "Registration number cannot be empty")
     private String registerationNumber;
 
     @NotBlank(message = "Vehicle name is required")
@@ -16,6 +16,16 @@ public class VehicleDTO {
 
     @NotNull(message = "Vehicle type is required")
     private Vehicle.Type type;
+    @NotNull(message = "Residence ID is mandatory")
+    private int residentId;
+
+    public int getResidentId() {
+        return residentId;
+    }
+
+    public void setResidentId(int residentId) {
+        this.residentId = residentId;
+    }
 
     public String getRegisterationNumber() {
         return registerationNumber;
