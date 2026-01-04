@@ -6,6 +6,9 @@ import com.vehicle.dto.response.ResidentResponseDTO;
 import com.vehicle.dto.response.VehicleResponseDTO;
 import com.vehicle.entity.Resident;
 import com.vehicle.entity.Vehicle;
+import com.vehicle.exception.ConstraintViolationFirstNameException;
+import com.vehicle.exception.ConstraintViolationLastNameException;
+import com.vehicle.exception.ResidentNotFoundException;
 import com.vehicle.repository.ResidentRepository;
 import com.vehicle.service.ResidentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,19 +100,30 @@ return dto;
     }
 
     @Override
-    public List<Resident> findResidentByName(String firstName, String lastName) {
-        List<Resident> residents;
-        if (firstName != null && lastName != null) {
-            residents = residentRepository.findByFNameAndLName(firstName, lastName);
+    public List<Resident> getResidentByName(String f_name, String l_name) throws ResidentNotFoundException {
+        if (!f_name.matches("^[A-Za-z]+$")) {
+            throw new ConstraintViolationFirstNameException("First name allows only string values");
         }
-        else if (firstName != null) {
-            residents = residentRepository.findByFName(firstName);
+
+        if (!l_name.matches("^[A-Za-z]+$")) {
+            throw new ConstraintViolationLastNameException("Last name allows only string values");
         }
-        else {
-            residents = residentRepository.findByLName(lastName);
+
+        List<Resident> findByName =
+                residentRepository.findByFirstName(f_name, l_name);
+
+        if (findByName.isEmpty()) {
+            throw new ResidentNotFoundException("Resident Not Found");
         }
-        return residents;
+
+        return findByName;
     }
 
+
 }
+
+
+
+
+
 

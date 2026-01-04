@@ -2,6 +2,8 @@ package com.vehicle.contoller;
 
 import com.vehicle.dto.request.ResidentDTO;
 import com.vehicle.dto.response.ResidentResponseDTO;
+import com.vehicle.entity.Resident;
+import com.vehicle.exception.ResidentNotFoundException;
 import com.vehicle.service.ResidentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,16 +30,11 @@ public class ResidentController {
         List<ResidentResponseDTO> listAll=residentService.getAllResident();
         return new ResponseEntity<>(listAll, HttpStatus.FOUND);
     }
-    @GetMapping("/search/{name}")
-    public ResponseEntity<String> searchResidentByName(@RequestParam(required = false) String fname, @RequestParam(required = false) String lastName){
-        //at least one value requited
-        if ((fname==null || fname.isBlank())  && (lastName== null || lastName.isBlank())){
-            return  ResponseEntity.badRequest().body("plese provide first name or last name");
+    @GetMapping("/getByResidentName/{f_name}/{l_name}")
+    public ResponseEntity<List<Resident>> getResidentByName(@PathVariable ("f_name") String f_name, @PathVariable("l_name") String l_name) throws ResidentNotFoundException {
+        List<Resident> getByName =residentService.getResidentByName(f_name,l_name);
+        return new ResponseEntity<>(getByName, HttpStatus.FOUND);
 
-        }
-        return ResponseEntity.ok(
-                residentService.findResidentByName(fname, lastName).toString()
-        );
     }
 }
 
