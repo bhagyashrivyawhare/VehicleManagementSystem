@@ -14,4 +14,5 @@ public interface ResidentService {
     //get all resident
     List<ResidentResponseDTO> getAllResident();
     List<Resident> getResidentByName(String f_name,String l_name) throws ResidentNotFoundException;
+    Resident getResidentByRegistrationNo(String registrationNo);
 }

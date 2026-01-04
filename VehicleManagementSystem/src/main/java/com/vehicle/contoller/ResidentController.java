@@ -36,6 +36,12 @@ public class ResidentController {
         return new ResponseEntity<>(getByName, HttpStatus.FOUND);
 
     }
+    @GetMapping("getByRegistrationNo/{registrationNumber}")
+    public ResponseEntity<Resident> getResidentByRegistrationNo(String registrationNo)
+    {
+        Resident getByRegNo=residentService.getResidentByRegistrationNo(registrationNo);
+        return new ResponseEntity<>(getByRegNo, HttpStatus.FOUND);
+    }
 }
 
 
